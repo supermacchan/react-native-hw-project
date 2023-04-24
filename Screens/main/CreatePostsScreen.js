@@ -190,19 +190,23 @@ export const CreatePostsScreen = ({ navigation }) => {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={hideKeyboard}>
-            <View style={styles.container}>
-                <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : ''} >
-                    {/* Form container */}
-                    <View style={{
-                        ...styles.form,
-                        paddingBottom: isKeyboardShown ? 0 : 45,
-                        marginBottom: isKeyboardShown ? -120 : 0,
-                    }}>
-                        {/* old Image container (temp) */}
-                        {/* <View style={styles.imgContainer}> */}
-                            {/* <Image /> */}
-                            {/* <Pressable style={styles.addImgBtn}>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <View style={styles.container}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : ""}
+          >
+            {/* Form container */}
+            <View
+              style={{
+                ...styles.form,
+                paddingBottom: isKeyboardShown ? 0 : 45,
+                marginBottom: isKeyboardShown ? -120 : 0,
+              }}
+            >
+              {/* old Image container (temp) */}
+              {/* <View style={styles.imgContainer}> */}
+              {/* <Image /> */}
+              {/* <Pressable style={styles.addImgBtn}>
                                 <AntDesign name="camera" size={24} color="#BDBDBD" />
                             </Pressable>
                         </View>
@@ -212,165 +216,173 @@ export const CreatePostsScreen = ({ navigation }) => {
                             </Text>
                         </Pressable> */}
 
-                        {photo ? (
-                            <View style={styles.imgContainer}>
-                                <Image
-                                    style={{
-                                        width: '100%',
-                                        height: 240,
-                                        backgroundColor: '#F6F6F6',
-                                        borderRadius: 8,
-                                    }}
-                                    source={{ uri: photo }}
-                                />
-                                <Pressable style={styles.addImgBtn} onPress={resetPhotoState}>
-                                    <AntDesign name="camera" size={24} color="#BDBDBD" />
-                                </Pressable>
-                            </View>
-                        ) : (
-                            <Camera
-                                style={styles.camera}
-                                type={type}
-                                ref={ref => setCameraRef(ref)}
-                            >
-                                <Pressable style={styles.addImgBtn} onPress={takePhoto}>
-                                    <AntDesign name="camera" size={24} color="#BDBDBD" />
-                                </Pressable>
-                                
-                                <View style={{ position: 'absolute', right: 10, bottom: 10 }}>
-                                    <TouchableOpacity onPress={toggleCameraType}>
-                                        <MaterialIcons
-                                            name="flip-camera-android"
-                                            size={24}
-                                            color="#BDBDBD"
-                                        />
-                                    </TouchableOpacity>
-                                </View>
-                            </Camera>
-                        )}
+              {photo ? (
+                <View style={styles.imgContainer}>
+                  <Image
+                    style={{
+                      width: "100%",
+                      height: 240,
+                      backgroundColor: "#F6F6F6",
+                      borderRadius: 8,
+                    }}
+                    source={{ uri: photo }}
+                  />
+                  <Pressable style={styles.addImgBtn} onPress={resetPhotoState}>
+                    <AntDesign name="camera" size={24} color="#BDBDBD" />
+                  </Pressable>
+                </View>
+              ) : (
+                <Camera
+                  style={styles.camera}
+                  type={type}
+                  ref={(ref) => setCameraRef(ref)}
+                >
+                  <Pressable style={styles.addImgBtn} onPress={takePhoto}>
+                    <AntDesign name="camera" size={24} color="#BDBDBD" />
+                  </Pressable>
 
-                        <Pressable onPress={pickImage}>
-                            <Text style={styles.addImage}>
-                                {photo ? "Загрузите фото" : "Редактировать фото"}
-                            </Text>
-                        </Pressable>
+                  <View style={{ position: "absolute", right: 10, bottom: 10 }}>
+                    <TouchableOpacity onPress={toggleCameraType}>
+                      <MaterialIcons
+                        name="flip-camera-android"
+                        size={24}
+                        color="#BDBDBD"
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </Camera>
+              )}
 
-                        <TextInput
-                            value={title}
-                            onChangeText={text => setTitle(text)}
-                            placeholder="Название..."
-                            placeholderTextColor={'#BDBDBD'}
-                            style={styles.postTitle}
-                        />
-                        <TextInput
-                            value={location}
-                            onChangeText={text => setLocation(text)}
-                            placeholder="Местность..."
-                            placeholderTextColor={'#BDBDBD'}
-                            style={styles.postLocation}
-                        />
-                        {/* <AntDesign name="enviromento" size={24} color="black" /> */}
-                        {/* Кнопка публикации */}
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            style={styles.button}
-                            onPress={onSubmit}
-                        >
-                            <Text style={styles.btnTitle}>Опубликовать</Text>
-                        </TouchableOpacity>
-                        {/* Toolbar */}
-                        <Pressable style={styles.deleteBtn}>
-                            <AntDesign name="delete" size={24} color="#BDBDBD" />
-                        </Pressable>
-                    </View>
-                </KeyboardAvoidingView>
+              <Pressable onPress={pickImage}>
+                <Text style={styles.addImage}>
+                  {photo ? "Загрузите фото" : "Редактировать фото"}
+                </Text>
+              </Pressable>
+
+              <TextInput
+                value={title}
+                onChangeText={(text) => setTitle(text)}
+                placeholder="Название..."
+                placeholderTextColor={"#BDBDBD"}
+                style={styles.postTitle}
+              />
+              <View style={styles.inputContainer}>
+                <AntDesign name="enviromento" size={24} color="#BDBDBD" />
+                <TextInput
+                  value={location}
+                  onChangeText={(text) => setLocation(text)}
+                  placeholder="Местность..."
+                  placeholderTextColor={"#BDBDBD"}
+                  style={styles.postLocation}
+                />
+              </View>
+
+              {/* <AntDesign name="enviromento" size={24} color="black" /> */}
+              {/* Кнопка публикации */}
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.button}
+                onPress={onSubmit}
+              >
+                <Text style={styles.btnTitle}>Опубликовать</Text>
+              </TouchableOpacity>
+              {/* Toolbar */}
+              <Pressable style={styles.deleteBtn}>
+                <AntDesign name="delete" size={24} color="#BDBDBD" />
+              </Pressable>
             </View>
-        </TouchableWithoutFeedback>
+          </KeyboardAvoidingView>
+        </View>
+      </TouchableWithoutFeedback>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff',
-    },
-    form: {
-        paddingTop: 32,
-        paddingBottom: 45,
-        paddingHorizontal: 16,
-        backgroundColor: '#fff',
-    },
-    imgContainer: {
-        backgroundColor: '#F6F6F6',
-        height: 240,
-        borderWidth: 1,
-        borderColor: '#E8E8E8',
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    camera: {
-        width: '100%',
-        height: 240,
-        borderRadius: 8,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    addImgBtn: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    addImage: {
-        color: '#BDBDBD',
-        fontFamily: "Roboto-Regular",
-        fontSize: 16,
-        paddingTop: 6,
-    },
-    postTitle: {
-        marginTop: 32,
-        paddingVertical: 15,
-        paddingHorizontal: 0,
-        borderBottomWidth: 1,
-        borderBottomColor: '#E8E8E8',
-        fontFamily: "Roboto-Regular",
-        fontSize: 16,
-        color: '#000',
-    },
-    postLocation: {
-        marginTop: 16,
-        paddingVertical: 15,
-        paddingHorizontal: 0,
-        borderBottomWidth: 1,
-        borderBottomColor: '#E8E8E8',
-        fontFamily: "Roboto-Regular",
-        fontSize: 16,
-        color: '#000',
-    },
-    button: {
-        backgroundColor: '#FF6C00',
-        borderRadius: 100,
-        marginTop: 32,
-        padding: 16,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    btnTitle: {
-        color: '#fff',
-        fontSize: 16,
-        fontFamily: "Roboto-Regular",
-    },
-    deleteBtn: {
-        backgroundColor: '#F6F6F6',
-        width: 70,
-        height: 40,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignSelf: 'center',
-        marginTop: 120,
-    }
-})
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  form: {
+    paddingTop: 32,
+    paddingBottom: 45,
+    paddingHorizontal: 16,
+    backgroundColor: "#fff",
+  },
+  imgContainer: {
+    backgroundColor: "#F6F6F6",
+    height: 240,
+    borderWidth: 1,
+    borderColor: "#E8E8E8",
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  camera: {
+    width: "100%",
+    height: 240,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  addImgBtn: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  addImage: {
+    color: "#BDBDBD",
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    paddingTop: 6,
+  },
+  postTitle: {
+    marginTop: 32,
+    paddingVertical: 15,
+    paddingHorizontal: 0,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E8E8E8",
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    color: "#000",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: "#E8E8E8",
+  },
+  postLocation: {
+    paddingHorizontal: 0,
+    marginLeft: 4,
+    fontFamily: "Roboto-Regular",
+    fontSize: 16,
+    color: "#000",
+  },
+  button: {
+    backgroundColor: "#FF6C00",
+    borderRadius: 100,
+    marginTop: 32,
+    padding: 16,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  btnTitle: {
+    color: "#fff",
+    fontSize: 16,
+    fontFamily: "Roboto-Regular",
+  },
+  deleteBtn: {
+    backgroundColor: "#F6F6F6",
+    width: 70,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
+    marginTop: 120,
+  },
+});
