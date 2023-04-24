@@ -3,7 +3,9 @@ import {
     View,
     ImageBackground,
     Text,
+    Image,
     Pressable,
+    SafeAreaView,
     FlatList
 } from 'react-native';
 import { useState, useEffect } from 'react';
@@ -19,6 +21,7 @@ import { useSelector } from 'react-redux';
 import { authSingOutUser } from '../../redux/auth/operations';
 import { useDispatch } from 'react-redux';
 import { AntDesign } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import * as ImagePicker from 'expo-image-picker';
 import { SinglePost } from "../../Components/SinglePost";
 

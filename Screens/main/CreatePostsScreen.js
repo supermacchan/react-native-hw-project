@@ -20,6 +20,9 @@ import * as ImagePicker from 'expo-image-picker';
 import Toast from 'react-native-toast-message';
 import { AntDesign } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons';
+import { storage, db } from "../../firebase/config";
+import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { collection, addDoc } from "firebase/firestore";
 
 export const CreatePostsScreen = ({ navigation }) => {
     const [isKeyboardShown, setIsKeyboardShown] = useState(false);
