@@ -31,7 +31,9 @@ const authSlice = createSlice({
         state.email = action.payload.email;
         state.avatar = action.payload.photoURL;
       })
-      .addCase(authSignUpUser.rejected, () => {
+      .addCase(authSignUpUser.rejected, (state, action) => {
+        console.log(state);
+        console.log(action);
         Toast.show({ type: 'error', text1: 'Wrong email' });
       })
       .addCase(authSignInUser.fulfilled, () => {

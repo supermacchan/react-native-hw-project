@@ -78,7 +78,9 @@ export const RegistrationScreen = ({ navigation }) => {
             return Toast.show({ type: 'error', text1: 'Fill in all fields' });
         }
         const avatar = await uploadPhoto();
-        dispatch(authSignUpUser({ email, password, login, avatar }));
+        console.log(email);
+        const mail = email;
+        dispatch(authSignUpUser({ mail, password, login, avatar }));
         valueReset();
         hideKeyboard();
     };
