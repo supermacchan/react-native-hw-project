@@ -5,36 +5,101 @@ import {
     Image,
     Pressable
 } from 'react-native';
+import { useState, useEffect } from "react";
+import {
+  collection,
+  getCountFromServer,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
+import { db } from "../firebase/config";
 import { EvilIcons } from '@expo/vector-icons'; 
 import { AntDesign } from '@expo/vector-icons';
 
-export const SinglePost = ({ navigation }) => {
+export const SinglePost = ({ navigation, photo, title, location, coords, postId, likes, country }) => {
+    const [count, setCount] = useState(null);
+    const [isLike, setIsLike] = useState(false);
+
+    const getCommentsCount = async () => {
+      try {
+        const coll = collection(db, "posts", postId, "comments");
+        const snapshot = await getCountFromServer(coll);
+        setCount(snapshot.data().count);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    useEffect(() => {
+      getCommentsCount();
+    }, []);
+
+    const onLike = async () => {
+      setIsLike(!isLike);
+
+      if (isLike) {
+        await updateDoc(doc(db, "posts", postId), {
+          like: likes - 1,
+        });
+        return;
+      }
+      await updateDoc(doc(db, "posts", postId), {
+        like: likes ? likes + 1 : 1,
+      });
+      return;
+    };
+
     return (
-        <View style={styles.post}>
-            {/* Image container */}
-            <View style={styles.imgContainer}>
-                <Image
-                    style={styles.image}
-                    source={require('../assets/test-post.jpg')}
-                    objectFit='cover'
-                />
-            </View>
-            {/* Image title */}
-            <Text style={styles.title}>Название</Text>
-            {/* Comments-Location section */}
-            <View style={styles.links}>
-                {/* Comments Button */}
-                <Pressable style={styles.commentsBtn} onPress={() => navigation.navigate("Comments")} >
-                    <EvilIcons name="comment" size={24} color="#BDBDBD" />
-                    <Text style={styles.comments}>000</Text>
-                </Pressable>
-                {/* Location Button */}
-                <Pressable style={styles.locationBtn} onPress={() => navigation.navigate("Map")}>
-                    <AntDesign name="enviromento" size={24} color="#BDBDBD" />
-                    <Text style={styles.location}>Локация</Text>
-                </Pressable>
-            </View>
+      <View style={styles.post}>
+        {/* Image container */}
+        <View style={styles.imgContainer}>
+          <Image
+            style={styles.image}
+            source={{ uri: photo }}
+            // source={require('../assets/test-post.jpg')}
+            objectFit="cover"
+          />
         </View>
+        {/* Image title */}
+        <Text style={styles.title}>{title}</Text>
+        {/* Comments-Location section */}
+        <View style={styles.links}>
+          {/* Comments Button */}
+          <Pressable
+            style={styles.commentsBtn}
+            onPress={() => navigation.navigate("Comments", { photo, postId })}
+          >
+            <EvilIcons name="comment" size={24} color="#BDBDBD" />
+            <Text style={styles.comments}>{count}</Text>
+          </Pressable>
+          {/* Likes Button */}
+          <Pressable
+            onPress={onLike}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginLeft: 24,
+            }}
+          >
+            {isLike ? (
+              <AntDesign name="like1" size={24} color="#FF6C00" />
+            ) : (
+              <AntDesign name="like2" size={24} color="#FF6C00" />
+            )}
+            <Text style={styles.quantity}> {likes ? likes : 0}</Text>
+          </Pressable>
+          {/* Location Button */}
+          <Pressable
+            style={styles.locationBtn}
+            onPress={() =>
+              navigation.navigate("Map", { coords, title, location })
+            }
+          >
+            <AntDesign name="enviromento" size={24} color="#BDBDBD" />
+            <Text style={styles.location}>{country}</Text>
+          </Pressable>
+        </View>
+      </View>
     );
 };
 

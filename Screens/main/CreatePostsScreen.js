@@ -20,8 +20,9 @@ import * as ImagePicker from 'expo-image-picker';
 import Toast from 'react-native-toast-message';
 import { AntDesign } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons';
-import { storage, db } from "../../firebase/config";
-import { uploadBytes, ref, getDownloadURL } from "firebase/storage";
+import { db } from "../../firebase/config";
+// removed storage
+import { getStorage, uploadBytes, ref, getDownloadURL } from "firebase/storage";
 import { collection, addDoc } from "firebase/firestore";
 
 export const CreatePostsScreen = ({ navigation }) => {
@@ -140,7 +141,10 @@ export const CreatePostsScreen = ({ navigation }) => {
             // Uploading photo
             const response = await fetch(photo);
             const file = await response.blob();
-            await uploadBytes(ref(storage, `photos/${file._data.blobId}`), file);
+            const storage = await getStorage();
+            const data = await ref(storage, `photos/${file._data.blobId}`);
+            console.log(data);
+            await uploadBytes(data, file);
             // get photo url
             const photoUrl = await getDownloadURL(
                 ref(storage, `photos/${file._data.blobId}`)
