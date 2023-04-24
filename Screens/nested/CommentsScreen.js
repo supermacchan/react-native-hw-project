@@ -103,71 +103,76 @@ export const CommentsScreen = ({ navigation, route }) => {
     };
 
     return (
-        <TouchableWithoutFeedback onPress={hideKeyboard}>
-            <View style={styles.container}>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS == 'ios' ? 'padding' : ''}
-                >
-                    {/* Comments section container */}
-                    <View style={{
-                            ...styles.section,
-                            paddingBottom: isKeyboardShown ? 0 : 16,
-                            marginBottom: isKeyboardShown ? -120 : 0,
-                    }}>
-                        {/* Image container */}
-                        <View style={styles.imgContainer}>
-                            <Image
-                                style={styles.image}
-                                source={require('../../assets/test-post.jpg')}
-                                objectFit='cover'
-                            />
-                        </View>
-                        {/* Comments section */}
-                        {/* <SingleComment /> */}
-                        <SafeAreaView style={{ flex: 1, marginBottom: 20 }}>
-                            <FlatList
-                                data={allComments}
-                                renderItem={({ item }) => (
-                                    <SingleComment
-                                        avatar={item.avatar}
-                                        comment={item.comment}
-                                        nickname={item.nickname}
-                                        date={item.time}
-                                    />
-                                )}
-                                keyExtractor={item => item.id}
-                            />
-                        </SafeAreaView>
-                        {/* New comment input */}
-                        <TextInput
-                            style={{
-                                ...styles.input,
-                                backgroundColor: isFocused ? '#fff' : '#F6F6F6',
-                                borderColor: isFocused ? '#FF6C00' : '#E8E8E8'
-                            }}
-                                placeholder='Комментировать...'
-                                placeholderTextColor='#BDBDBD'
-                                onFocus={() => {
-                                    setIsFocused(true);
-                                    setIsKeyboardShown(true);
-                                }}
-                                onBlur={() => { setIsFocused(false) }}
-                                onChangeText={handleSetComment}
-                                value={comment}
-                        />
-                        {/* Кнопка регистрации */}
-                        <TouchableOpacity
-                            activeOpacity={0.8}
-                            style={styles.button}
-                            onPress={handleSubmit}
-                        >
-                            <AntDesign name="arrowup" size={24} color="#fff" />
-                        </TouchableOpacity>
-                    </View>
-                </KeyboardAvoidingView>
+      <TouchableWithoutFeedback onPress={hideKeyboard}>
+        <View style={styles.container}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : ""}
+          >
+            {/* Comments section container */}
+            <View
+              style={{
+                ...styles.section,
+                paddingBottom: isKeyboardShown ? 0 : 16,
+                marginBottom: isKeyboardShown ? -120 : 0,
+              }}
+            >
+              {/* Image container */}
+              <View style={styles.imgContainer}>
+                <Image
+                  style={styles.image}
+                  source={{ uri: photo }}
+                  // source={require('../../assets/test-post.jpg')}
+                  objectFit="cover"
+                />
+              </View>
+              {/* Comments section */}
+              {/* <SingleComment /> */}
+              <SafeAreaView style={{ flex: 1, marginBottom: 20 }}>
+                <FlatList
+                  data={allComments}
+                  renderItem={({ item }) => (
+                    <SingleComment
+                      avatar={item.avatar}
+                      comment={item.comment}
+                      nickname={item.nickname}
+                      date={item.time}
+                    />
+                  )}
+                  keyExtractor={(item) => item.id}
+                />
+              </SafeAreaView>
+              {/* New comment input */}
+              <TextInput
+                style={{
+                  ...styles.input,
+                  backgroundColor: isFocused ? "#fff" : "#F6F6F6",
+                  borderColor: isFocused ? "#FF6C00" : "#E8E8E8",
+                }}
+                placeholder="Комментировать..."
+                placeholderTextColor="#BDBDBD"
+                onFocus={() => {
+                  setIsFocused(true);
+                  setIsKeyboardShown(true);
+                }}
+                onBlur={() => {
+                  setIsFocused(false);
+                }}
+                onChangeText={handleSetComment}
+                value={comment}
+              />
+              {/* Кнопка регистрации */}
+              <TouchableOpacity
+                activeOpacity={0.8}
+                style={styles.button}
+                onPress={handleSubmit}
+              >
+                <AntDesign name="arrowup" size={24} color="#fff" />
+              </TouchableOpacity>
             </View>
-        </TouchableWithoutFeedback>
-    )
+          </KeyboardAvoidingView>
+        </View>
+      </TouchableWithoutFeedback>
+    );
 };
 
 const styles = StyleSheet.create({
