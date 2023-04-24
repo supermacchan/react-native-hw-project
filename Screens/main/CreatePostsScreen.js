@@ -237,10 +237,10 @@ export const CreatePostsScreen = ({ navigation }) => {
                   type={type}
                   ref={(ref) => setCameraRef(ref)}
                 >
-                  <Pressable style={styles.addImgBtn} onPress={takePhoto}>
+                <Pressable style={styles.addImgBtn} onPress={takePhoto}>
                     <AntDesign name="camera" size={24} color="#BDBDBD" />
-                  </Pressable>
-
+                </Pressable>
+                
                   <View style={{ position: "absolute", right: 10, bottom: 10 }}>
                     <TouchableOpacity onPress={toggleCameraType}>
                       <MaterialIcons
@@ -255,7 +255,7 @@ export const CreatePostsScreen = ({ navigation }) => {
 
               <Pressable onPress={pickImage}>
                 <Text style={styles.addImage}>
-                  {photo ? "Загрузите фото" : "Редактировать фото"}
+                  {!photo ? "Загрузите фото" : "Редактировать фото"}
                 </Text>
               </Pressable>
 
