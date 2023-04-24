@@ -37,45 +37,46 @@ export const DefaultPostsScreen = ({ navigation }) => {
     }, []);
 
     return (
-        <View style={styles.container}>
-            {/* Profile Container */}
-            <View style={styles.profileContainer}>
-                {/* Image Container */}
-                <View style={styles.imgContainer}>
-                    <Image
-                        style={styles.image}
-                        source={{ uri: avatar }}
-                        // source={require('../../assets/test-avatar.jpg')}
-                        objectFit='cover'
-                    />
-                </View>
-                {/* Text Container */}
-                <View style={styles.textContainer}>
-                    <Text style={styles.name}>{nickname}</Text>
-                    <Text style={styles.email}>{email}</Text>
-                </View>
-            </View>
-            {/* Here for the testing */}
-            {/* <SinglePost navigation={navigation}/> */}
-            <SafeAreaView style={{ flex: 1 }}>
-                <FlatList
-                    data={posts}
-                    renderItem={({ item }) => (
-                        <SinglePost
-                            photo={item.photo}
-                            title={item.title}
-                            location={item.location}
-                            navigation={navigation}
-                            coords={item.coords}
-                            postId={item.id}
-                            likes={item.like}
-                            country={item.country}
-                        />
-                    )}
-                    keyExtractor={item => item.id}
-                />
-            </SafeAreaView>
+      <View style={styles.container}>
+        {/* Profile Container */}
+        <View style={styles.profileContainer}>
+          {/* Image Container */}
+          <View style={styles.imgContainer}>
+            <Image
+              style={styles.image}
+              source={{ uri: avatar }}
+              // source={require('../../assets/test-avatar.jpg')}
+              objectFit="cover"
+            />
+          </View>
+          {/* Text Container */}
+          <View style={styles.textContainer}>
+            <Text style={styles.name}>{nickname}</Text>
+            <Text style={styles.email}>{email}</Text>
+          </View>
         </View>
+        {/* Here for the testing */}
+        {/* <SinglePost navigation={navigation}/> */}
+        <SafeAreaView style={{ flex: 1 }}>
+          {/* safe area working */}
+          <FlatList
+            data={posts}
+            renderItem={({ item }) => (
+              <SinglePost
+                photo={item.photo}
+                title={item.title}
+                location={item.location}
+                navigation={navigation}
+                coords={item.coords}
+                postId={item.id}
+                likes={item.like}
+                country={item.country}
+              />
+            )}
+            keyExtractor={(item) => item.id}
+          />
+        </SafeAreaView>
+      </View>
     );
 }
 

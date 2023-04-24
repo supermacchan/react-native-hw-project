@@ -10,12 +10,11 @@ export const SingleComment = ({ avatar, comment, nickname, date }) => {
     const username = useSelector(state => state.auth.nickname);
 
     return (
-        <View>
             <View
                 style={{
                     ...styles.container,
                     flexDirection: username === nickname ? 'row-reverse' : 'row',
-                    marginBottom: 24,
+                    // marginBottom: 24,
                 }}
             >
                 <View style={styles.avatarContainer}>
@@ -34,37 +33,12 @@ export const SingleComment = ({ avatar, comment, nickname, date }) => {
                     </Text>
                 </View>
             </View>
-
-            {/* comment 2 */}
-            {/* <View
-                style={{
-                    ...styles.container,
-                    flexDirection: 'row-reverse',
-                    marginBottom: 24,
-                }}
-            >
-                <View style={styles.avatarContainer}>
-                    <Image style={styles.avatar} />
-                </View>
-                
-                <View style={styles.comment}>
-                <Text style={styles.text}>Comment pipipipipi</Text>
-                <Text
-                    style={{
-                    ...styles.date,
-                    textAlign: 'left',
-                    }}
-                >
-                    10 July 2020
-                </Text>
-                </View>
-            </View> */}
-      </View>
   );
 };
 
 const styles = StyleSheet.create({
     container: {
+        // flex: 1,
         marginBottom: 24,
     },
     avatarContainer: {

@@ -98,6 +98,7 @@ export const DefaultProfileScreen = ({ navigation }) => {
                     {/* Here for the testing */}
                     {/* <SinglePost navigation={navigation} /> */}
                     <SafeAreaView style={{ flex: 1, width: '100%', marginTop: 32 }}>
+                        {/* safe area not working */}
                         <FlatList
                             data={posts}
                             renderItem={({ item }) => (
@@ -115,9 +116,6 @@ export const DefaultProfileScreen = ({ navigation }) => {
                             keyExtractor={item => item.id}
                         />
                     </SafeAreaView>
-                    <FlatList>
-                        {/* Тут будут рендериться посты */}
-                    </FlatList>
                 </View>
             </ImageBackground>
         </View>

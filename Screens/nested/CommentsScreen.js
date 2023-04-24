@@ -56,12 +56,12 @@ export const CommentsScreen = ({ navigation, route }) => {
             collection(db, 'posts', postId, 'comments'),
             orderBy('date')
         );
+
         const getComments = onSnapshot(q, querySnapshot => {
             const comments = [];
             querySnapshot.forEach(doc => {
                 comments.push({ ...doc.data(), id: doc.id });
             });
-            console.log(comments);
             setAllComments(comments);
         });
 
@@ -77,6 +77,7 @@ export const CommentsScreen = ({ navigation, route }) => {
             showSubscription.remove();
             hideSubscription.remove();
         };
+        
     }, []);
 
     const handleSetComment = text => setComment(text);
@@ -104,8 +105,6 @@ export const CommentsScreen = ({ navigation, route }) => {
         setIsKeyboardShown(false);
     };
 
-    console.log(`shalalalala ${allComments}`);
-
     return (
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={styles.container}>
@@ -130,20 +129,20 @@ export const CommentsScreen = ({ navigation, route }) => {
                 />
               </View>
               {/* Comments section */}
-              {/* <SingleComment /> */}
               <SafeAreaView style={{ flex: 1, marginBottom: 20 }}>
+                {/* safe area not working */}
                 <FlatList
                   data={allComments}
+                  keyExtractor={(item) => item.id}
                   renderItem={({ item }) => (
-                      <SingleComment
-                        key={item.id}
-                        avatar={item.avatar}
-                        comment={item.comment}
-                        nickname={item.nickname}
-                        date={item.time}
+                    <SingleComment
+                      key={item.id}
+                      avatar={item.avatar}
+                      comment={item.comment}
+                      nickname={item.nickname}
+                      date={item.time}
                     />
                   )}
-                  keyExtractor={(item) => item.id}
                 />
               </SafeAreaView>
               {/* New comment input */}
