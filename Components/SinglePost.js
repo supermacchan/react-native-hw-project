@@ -105,7 +105,7 @@ export const SinglePost = ({ navigation, photo, title, location, coords, postId,
 
 const styles = StyleSheet.create({
     post: {
-        marginTop: 32
+        marginBottom: 32
     },
     imgContainer: {
         height: 240,
