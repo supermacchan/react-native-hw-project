@@ -56,11 +56,12 @@ export const CommentsScreen = ({ navigation, route }) => {
             collection(db, 'posts', postId, 'comments'),
             orderBy('date')
         );
-        const unsubscribe = onSnapshot(q, querySnapshot => {
+        const getComments = onSnapshot(q, querySnapshot => {
             const comments = [];
             querySnapshot.forEach(doc => {
                 comments.push({ ...doc.data(), id: doc.id });
             });
+            console.log(comments);
             setAllComments(comments);
         });
 
@@ -72,7 +73,7 @@ export const CommentsScreen = ({ navigation, route }) => {
         });
 
         return () => {
-            unsubscribe();
+            getComments();
             showSubscription.remove();
             hideSubscription.remove();
         };
@@ -103,6 +104,8 @@ export const CommentsScreen = ({ navigation, route }) => {
         setIsKeyboardShown(false);
     };
 
+    console.log(`shalalalala ${allComments}`);
+
     return (
       <TouchableWithoutFeedback onPress={hideKeyboard}>
         <View style={styles.container}>
@@ -132,11 +135,12 @@ export const CommentsScreen = ({ navigation, route }) => {
                 <FlatList
                   data={allComments}
                   renderItem={({ item }) => (
-                    <SingleComment
-                      avatar={item.avatar}
-                      comment={item.comment}
-                      nickname={item.nickname}
-                      date={item.time}
+                      <SingleComment
+                        key={item.id}
+                        avatar={item.avatar}
+                        comment={item.comment}
+                        nickname={item.nickname}
+                        date={item.time}
                     />
                   )}
                   keyExtractor={(item) => item.id}
