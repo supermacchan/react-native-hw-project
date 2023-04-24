@@ -19,7 +19,7 @@ export const SingleComment = ({ avatar, comment, nickname, date }) => {
                 }}
             >
                 <View style={styles.avatarContainer}>
-                    <Image source={{ uri: avatar }} style={styles.avatar} />
+                    <Image source={avatar?  { uri: avatar } : require('../assets/temp-avatar.png')} style={styles.avatar} />
                 </View>
                     
                 <View style={username === nickname ? styles.userComment : styles.comment} >

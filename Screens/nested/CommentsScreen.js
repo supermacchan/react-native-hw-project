@@ -23,6 +23,7 @@ import {
 import { useSelector } from 'react-redux';
 import { AntDesign } from "@expo/vector-icons";
 import { SingleComment } from '../../Components/SingleComment';
+import commentDayandTime from "../../utils/commentDayandTime";
 
 export const CommentsScreen = ({ navigation, route }) => {
     const [isKeyboardShown, setIsKeyboardShown] = useState(false);
