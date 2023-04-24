@@ -8,6 +8,7 @@ import {
     Keyboard,
     TouchableWithoutFeedback,
     Image,
+    SafeAreaView,
     FlatList
 } from 'react-native';
 import { useState, useEffect } from 'react';
@@ -152,7 +153,7 @@ export const CommentsScreen = ({ navigation, route }) => {
                                 }}
                                 onBlur={() => { setIsFocused(false) }}
                                 onChangeText={handleSetComment}
-                                value={inputValue}
+                                value={comment}
                         />
                         {/* Кнопка регистрации */}
                         <TouchableOpacity
